@@ -1,6 +1,6 @@
 package com.github.anddd7
 
-import com.github.anddd7.config.Downstream
+import com.github.anddd7.adapter.config.Downstream
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration.options

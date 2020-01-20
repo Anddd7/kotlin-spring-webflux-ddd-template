@@ -2,4 +2,4 @@ spring:
   profiles:
     active: local
   application:
-    name: kotlin-spring-webflux
+    name: kotlin-spring-webflux-ddd
