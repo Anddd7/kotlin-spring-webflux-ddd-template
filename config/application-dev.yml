@@ -1,0 +1,25 @@
+# this is a dev config file, nearly same with local config
+# some credentials should use environment variables and inject when you start the container
+
+server:
+  port: 8080
+
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://${POSTGRES_HOST:127.0.0.1}:${POSTGRES_PORT:5432}/${POSTGRES_DB:local}
+    name: r2dbc
+    username: ${POSTGRES_USER:test}
+    password: ${POSTGRES_PASSWORD:test}
+    properties:
+      password: ${POSTGRES_PASSWORD:test}
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:127.0.0.1}:${POSTGRES_PORT:5432}/${POSTGRES_DB:local}
+    driver-class-name: org.postgresql.Driver
+    username: ${POSTGRES_USER:test}
+    password: ${POSTGRES_PASSWORD:test}
+    platform: postgresql
+  flyway:
+    locations: classpath:db/migration
+
+downstream:
+  stock: http://localhost:8080

@@ -1,0 +1,7 @@
+CREATE TABLE PRODUCTS
+(
+    id    SERIAL NOT NULL
+        CONSTRAINT PRODUCTS_PK PRIMARY KEY,
+    name  VARCHAR,
+    price REAL
+);

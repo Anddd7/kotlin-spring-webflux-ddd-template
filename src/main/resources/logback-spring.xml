@@ -1,0 +1,28 @@
+<configuration>
+  <include resource="included-console.xml"/>
+
+  <springProfile name="local,test">
+    <logger level="DEBUG" name="com.github.anddd7"/>
+
+    <root level="DEBUG">"
+      <appender-ref ref="STDOUT"/>
+    </root>
+  </springProfile>
+
+  <springProfile name="dev">
+    <logger level="DEBUG" name="com.github.anddd7.service"/>
+
+    <root level="INFO">"
+      <appender-ref ref="STDOUT"/>
+    </root>
+  </springProfile>
+
+  <!--  TODO replace by logback-->
+  <springProfile name="deploy">
+    <logger level="DEBUG" name="com.github.anddd7.service"/>
+
+    <root level="INFO">"
+      <appender-ref ref="STDOUT"/>
+    </root>
+  </springProfile>
+</configuration>
