@@ -1,6 +1,8 @@
 # kotlin-spring-webflux-ddd
 
-Base on [kotlin-spring-webflux](https://github.com/Anddd7/kotlin-spring-webflux-template), find more details in [tutorial](https://github.com/Anddd7/kotlin-spring-webflux-template/README-TUTORIAL.md)
+Base on [kotlin-spring-webflux](https://github.com/Anddd7/kotlin-spring-webflux-template), 
+find more details in [DDD Tutorial](https://github.com/Anddd7/kotlin-spring-ddd-template/README-TUTORIAL.md) 
+and [WebFlux Tutorial](https://github.com/Anddd7/kotlin-spring-webflux-template/README-TUTORIAL.md)
 
 ## Run
 ```bash
