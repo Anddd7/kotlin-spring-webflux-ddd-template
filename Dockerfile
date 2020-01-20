@@ -5,7 +5,7 @@ ENV JAVA_OPTS=$JAVA_OPTS
 ARG IMAGE_VERSION
 ENV IMAGE_VERSION=$IMAGE_VERSION
 
-COPY ./build/libs/kotlin-spring-webflux-*.jar app.jar
+COPY ./build/libs/kotlin-spring-webflux-ddd-*.jar app.jar
 COPY ./config/application-dev.yml application-deploy.yml
 
 EXPOSE 8080

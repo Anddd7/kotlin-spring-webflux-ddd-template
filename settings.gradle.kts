@@ -12,4 +12,4 @@ pluginManagement {
         }
     }
 }
-rootProject.name = "kotlin-spring-webflux"
+rootProject.name = "kotlin-spring-webflux-ddd"

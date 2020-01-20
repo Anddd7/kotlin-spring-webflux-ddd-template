@@ -59,9 +59,9 @@ docker-compose -f docker-compose.test.yml up --build
 
 ```bash
 # build image
-docker build -t kotlin-spring-webflux .
+docker build -t kotlin-spring-webflux-ddd .
 # inject environment variables, check details in config/application-dev.yml
-docker run -p 8080:8080 <environment> kotlin-spring-webflux
+docker run -p 8080:8080 <environment> kotlin-spring-webflux-ddd
 ```
 
 **Should put this part into CI/CD, DON'T manually deploy in production**

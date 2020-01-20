@@ -12,7 +12,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   application:
-    image: kotlin-spring-webflux
+    image: kotlin-spring-webflux-ddd
     build:
       context: .
     environment:
