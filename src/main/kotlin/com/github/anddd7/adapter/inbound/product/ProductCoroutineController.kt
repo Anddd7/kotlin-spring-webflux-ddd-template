@@ -22,8 +22,8 @@ class ProductCoroutineController(private val productUserCase: ProductCoroutineUs
   fun products(): Flow<Product> = productUserCase.findAll()
 
   @GetMapping("/{id}")
-  suspend fun productStock(@PathVariable id: Long): ProductStockDTO = productUserCase.getProductStock(id)
+  suspend fun productStock(@PathVariable id: Int): ProductStockDTO = productUserCase.getProductStock(id)
 
   @GetMapping("/{id}/stock")
-  fun stock(@PathVariable id: Long): BigDecimal = Random(id).nextFloat().let(::abs).toBigDecimal()
+  fun stock(@PathVariable id: Int): BigDecimal = Random(id).nextFloat().let(::abs).toBigDecimal()
 }

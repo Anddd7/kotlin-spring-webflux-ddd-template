@@ -5,13 +5,11 @@ import com.github.tomakehurst.wiremock.client.WireMock.okJson
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.test.context.jdbc.Sql
 import org.springframework.test.web.reactive.server.WebTestClient
 
 @Suppress("FunctionName")
 @EnableApiTest
-@AutoConfigureWebTestClient
 @Sql("classpath:fixture/product_api.sql")
 internal class ProductCoroutineControllerApiTest {
 

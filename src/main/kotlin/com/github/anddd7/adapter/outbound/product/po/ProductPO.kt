@@ -9,7 +9,7 @@ import java.math.BigDecimal
 @Table("products")
 data class ProductPO(
     @Id
-    val id: Long = 0,
+    val id: Int = 0,
     val name: String,
     val price: BigDecimal
 ) : PersistObject

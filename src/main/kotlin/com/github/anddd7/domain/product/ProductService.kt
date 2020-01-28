@@ -7,5 +7,5 @@ class ProductService(
     private val productRepository: ProductRepository
 ) {
   fun findAll(): Flux<Product> = productRepository.findAll()
-  fun getOne(id: Long): Mono<Product> = productRepository.getOne(id)
+  fun getOne(id: Int): Mono<Product> = productRepository.getOne(id)
 }

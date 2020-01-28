@@ -10,5 +10,5 @@ class ProductCoroutineService(
   @FlowPreview
   fun findAll(): Flow<Product> = productRepository.findAll()
 
-  suspend fun getOne(id: Long): Product = productRepository.getOne(id)
+  suspend fun getOne(id: Int): Product = productRepository.getOne(id)
 }

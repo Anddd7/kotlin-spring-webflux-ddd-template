@@ -5,5 +5,5 @@ import reactor.core.publisher.Mono
 import java.math.BigDecimal
 
 interface StockRepository : Repository {
-  fun getStock(productId: Long): Mono<BigDecimal>
+  fun getStock(productId: Int): Mono<BigDecimal>
 }

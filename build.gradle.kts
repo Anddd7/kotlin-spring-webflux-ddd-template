@@ -112,8 +112,8 @@ dependencies {
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
   /* security */
-  //  implementation("org.springframework.boot:spring-boot-starter-security")
-  //  testImplementation("org.springframework.security:spring-security-test")
+//  implementation("org.springframework.boot:spring-boot-starter-security")
+//  testImplementation("org.springframework.security:spring-security-test")
 
   /* monitoring x logging */
   implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -122,8 +122,8 @@ dependencies {
   /* r2bdc: reactive relational database connector */
   implementation("org.springframework.boot.experimental:spring-boot-starter-data-r2dbc:0.1.0.M3")
   // you can import and configure r2dbc manually in spring if you don't want to use experimental
-  //  implementation("org.springframework.data:spring-data-r2dbc:1.0.0.RELEASE")
-  //  implementation("io.r2dbc:r2dbc-spi:0.8.0.RELEASE")
+//  implementation("org.springframework.data:spring-data-r2dbc:1.0.0.RELEASE")
+//  implementation("io.r2dbc:r2dbc-spi:0.8.0.RELEASE")
   runtimeOnly("io.r2dbc:r2dbc-postgresql:0.8.0.RELEASE")
   // jdbc x flyway
   // ps: jdbc is only used by flyway and embedded db to do migration and test preparation

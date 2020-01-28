@@ -8,5 +8,5 @@ interface ProductCoroutineRepository : Repository {
   @FlowPreview
   fun findAll(): Flow<Product>
 
-  suspend fun getOne(id: Long): Product
+  suspend fun getOne(id: Int): Product
 }

@@ -9,27 +9,16 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.reactive.asFlow
-import org.springframework.data.r2dbc.core.DatabaseClient
-import org.springframework.data.r2dbc.core.awaitOne
-import org.springframework.data.r2dbc.core.from
-import org.springframework.data.r2dbc.query.Criteria.where
+import kotlinx.coroutines.reactive.awaitFirstOrNull
 import org.springframework.stereotype.Repository
 
 @Repository
-class ProductCoroutineRepositoryImpl(private val databaseClient: DatabaseClient) : ProductCoroutineRepository, RepositoryImpl {
+class ProductCoroutineRepositoryImpl(private val productDAO: ProductDAO) : ProductCoroutineRepository, RepositoryImpl {
   @FlowPreview
-  override fun findAll(): Flow<Product> = databaseClient
-      .select().from<ProductPO>()
-      .fetch().all()
-      .asFlow()
-      .map { it.toProduct() }
+  override fun findAll(): Flow<Product> =
+      productDAO.findAll().asFlow().map { it.toProduct() }
 
-  override suspend fun getOne(id: Long): Product = databaseClient
-      .select().from<ProductPO>()
-      .matching(
-          where("id").`is`(id)
-      )
-      .fetch()
-      .awaitOne()
-      .let(ProductPO::toProduct)
+  override suspend fun getOne(id: Int): Product =
+      productDAO.findById(id).awaitFirstOrNull()?.let(ProductPO::toProduct)
+          ?: throw IllegalArgumentException()
 }

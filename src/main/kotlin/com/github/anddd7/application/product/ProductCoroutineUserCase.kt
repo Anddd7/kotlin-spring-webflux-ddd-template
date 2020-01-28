@@ -23,7 +23,7 @@ class ProductCoroutineUserCase(
   @FlowPreview
   fun findAll(): Flow<Product> = productService.findAll()
 
-  suspend fun getProductStock(id: Long): ProductStockDTO = coroutineScope {
+  suspend fun getProductStock(id: Int): ProductStockDTO = coroutineScope {
     val product = async { productService.getOne(id) }
     val stock = async { stockRepository.getStock(id) }
 

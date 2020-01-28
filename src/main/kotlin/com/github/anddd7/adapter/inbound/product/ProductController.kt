@@ -21,12 +21,12 @@ class ProductController(private val productUserCase: ProductUserCase) : EndPoint
   fun products(): Flux<Product> = productUserCase.findAll()
 
   @GetMapping("/{id}")
-  fun productStock(@PathVariable id: Long): Mono<ProductStockDTO> =
+  fun productStock(@PathVariable id: Int): Mono<ProductStockDTO> =
       productUserCase.getProductStock(id)
           .switchIfEmpty(Mono.error(NoSuchElementException()))
 
   @GetMapping("/{id}/stock")
-  fun stock(@PathVariable id: Long): Mono<BigDecimal> = Mono.just(
+  fun stock(@PathVariable id: Int): Mono<BigDecimal> = Mono.just(
       Random(id).nextFloat().let(::abs).toBigDecimal()
   )
 }

@@ -11,7 +11,7 @@ import java.math.BigDecimal
 
 @Repository
 class StockCoroutineClient(private val webClient: WebClient) : StockCoroutineRepository, RepositoryImpl {
-  override suspend fun getStock(productId: Long): BigDecimal = webClient
+  override suspend fun getStock(productId: Int): BigDecimal = webClient
       .get()
       .uri("/coroutine/product/$productId/stock")
       .accept(MediaType.APPLICATION_JSON)

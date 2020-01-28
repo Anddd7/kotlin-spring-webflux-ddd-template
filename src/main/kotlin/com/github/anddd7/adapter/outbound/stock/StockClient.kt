@@ -11,7 +11,7 @@ import java.math.BigDecimal
 
 @Repository
 class StockClient(private val webClient: WebClient) : StockRepository, RepositoryImpl {
-  override fun getStock(productId: Long): Mono<BigDecimal> = webClient
+  override fun getStock(productId: Int): Mono<BigDecimal> = webClient
       .get()
       .uri("/product/$productId/stock")
       .accept(MediaType.APPLICATION_JSON)

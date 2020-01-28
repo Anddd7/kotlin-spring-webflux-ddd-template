@@ -18,7 +18,7 @@ class ProductUserCase(
   private val productService: ProductService = ProductService(productRepository)
 
   fun findAll(): Flux<Product> = productService.findAll()
-  fun getProductStock(id: Long): Mono<ProductStockDTO> {
+  fun getProductStock(id: Int): Mono<ProductStockDTO> {
     val product = productService.getOne(id)
     val stock = stockRepository.getStock(id)
 

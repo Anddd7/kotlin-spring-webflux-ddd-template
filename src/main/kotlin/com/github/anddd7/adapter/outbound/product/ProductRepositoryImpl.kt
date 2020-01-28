@@ -5,25 +5,17 @@ import com.github.anddd7.adapter.outbound.product.po.ProductPO
 import com.github.anddd7.adapter.outbound.product.po.toProduct
 import com.github.anddd7.domain.product.Product
 import com.github.anddd7.domain.product.ProductRepository
-import org.springframework.data.r2dbc.core.DatabaseClient
-import org.springframework.data.r2dbc.core.from
-import org.springframework.data.r2dbc.query.Criteria.where
+import org.springframework.data.repository.reactive.ReactiveCrudRepository
+import org.springframework.stereotype.Component
 import org.springframework.stereotype.Repository
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @Repository
-class ProductRepositoryImpl(private val databaseClient: DatabaseClient) : ProductRepository, RepositoryImpl {
-  override fun findAll(): Flux<Product> = databaseClient
-      .select().from<ProductPO>()
-      .fetch().all()
-      .map(ProductPO::toProduct)
-
-  override fun getOne(id: Long): Mono<Product> = databaseClient
-      .select().from<ProductPO>()
-      .matching(
-          where("id").`is`(id)
-      )
-      .fetch().first()
-      .map(ProductPO::toProduct)
+class ProductRepositoryImpl(private val productDAO: ProductDAO) : ProductRepository, RepositoryImpl {
+  override fun findAll(): Flux<Product> = productDAO.findAll().map(ProductPO::toProduct)
+  override fun getOne(id: Int): Mono<Product> = productDAO.findById(id).map(ProductPO::toProduct)
 }
+
+@Component
+interface ProductDAO : ReactiveCrudRepository<ProductPO, Int>
