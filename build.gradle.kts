@@ -50,15 +50,16 @@ plugins {
 
 /** -------------- configure imported plugin -------------- */
 
-val sourceSets = the<SourceSetContainer>()
-
-sourceSets {
-  create("apiTest") {
-    java.srcDir("src/apiTest/kotlin")
+val apiSourceSet = sourceSets.create("apiTest") {
+  withConvention(org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet::class) {
+    kotlin.srcDir("src/apiTest/kotlin")
     resources.srcDir("src/apiTest/resources")
-    compileClasspath += sourceSets["test"].compileClasspath
-    runtimeClasspath += sourceSets["test"].runtimeClasspath
   }
+
+  val testSourceSet = sourceSets.test.get()
+
+  compileClasspath += testSourceSet.compileClasspath
+  runtimeClasspath += testSourceSet.runtimeClasspath
 }
 
 idea {
@@ -68,6 +69,11 @@ idea {
   module {
     outputDir = file("$buildDir/idea-compiler/main")
     testOutputDir = file("$buildDir/idea-compiler/test")
+
+    apiSourceSet.withConvention(org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet::class) {
+      testSourceDirs = testSourceDirs + kotlin.srcDirs
+      testResourceDirs = testResourceDirs + resources.srcDirs
+    }
   }
 }
 
@@ -145,8 +151,8 @@ dependencies {
 tasks.register<Test>("apiTest") {
   description = "Runs the api tests."
   group = "verification"
-  testClassesDirs = sourceSets["apiTest"].output.classesDirs
-  classpath = sourceSets["apiTest"].runtimeClasspath
+  testClassesDirs = apiSourceSet.output.classesDirs
+  classpath = apiSourceSet.runtimeClasspath
   mustRunAfter(tasks["test"])
 }
 
