@@ -1,4 +1,4 @@
-FROM openjdk:11-jre-slim
+FROM adoptopenjdk/openjdk11:alpine-jre
 
 ARG JAVA_OPTS
 ENV JAVA_OPTS=$JAVA_OPTS

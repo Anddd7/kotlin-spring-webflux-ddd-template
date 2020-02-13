@@ -18,7 +18,7 @@ curl http://localhost:8080/hello
 1. generate idea project config
 
 ```bash
-./gradlew idea
+./gradlew cleanIdea idea
 ```
 
 2. enable git hooks
@@ -37,9 +37,9 @@ chmod 700 .githooks/pre-push
 - New line end of file
   - Enter `Preferences -> Editor -> General`
   - Check on `Other: Ensure line feed at file end on Save`
-- Automatic format before commit when using IDEA commit dialog
+- (Optional) Automatic format before commit when using IDEA commit dialog
   - Enter `Preferences -> Version Control -> Commit Dialog`
-  - Check on all options (exclude copyright)
+  - Check on Reformat/Optimize/Cleanup
 
 ## Test
 
