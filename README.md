@@ -40,7 +40,11 @@ chmod 700 .githooks/pre-push
 - (Optional) Automatic format before commit when using IDEA commit dialog
   - Enter `Preferences -> Version Control -> Commit Dialog`
   - Check on Reformat/Optimize/Cleanup
-
+- Set jvm of gradle
+  - Enter `Build, Execution, Deployment -> Build Tools -> Gradle`  
+  - Select `Gradle JVM: Use Project JDK`
+  > If the jvm is different with your project, will cause 'No tests found' error
+  
 ## Test
 
 1. init test & integration test
