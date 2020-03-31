@@ -1,0 +1,27 @@
+<included>
+  <appender name="STASH" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+      <providers>
+        <timestamp/>
+        <version/>
+        <message/>
+        <loggerName/>
+        <logLevel/>
+        <threadName/>
+        <stackTrace/>
+        <arguments/>
+        <mdc>
+          <includeMdcKeyName>correlationId</includeMdcKeyName>
+        </mdc>
+        <pattern>
+          <pattern>
+            {
+            "project": "kotlin-spring-webflux-ddd",
+            "logType": "event"
+            }
+          </pattern>
+        </pattern>
+      </providers>
+    </encoder>
+  </appender>
+</included>
