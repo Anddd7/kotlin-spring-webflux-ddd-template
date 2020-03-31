@@ -169,7 +169,8 @@ tasks.withType<Test> {
 }
 
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt> {
-  jvmTarget = "1.8"
+  // include("**/special/package/**") // only analyze a sub package inside src/main/kotlin
+  // exclude("**/special/package/internal/**") // but exclude our legacy internal package
 }
 
 task("newMigration") {
