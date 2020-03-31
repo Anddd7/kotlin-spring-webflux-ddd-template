@@ -102,6 +102,7 @@ dependencies {
   /* kotlin coroutines*/
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+  implementation("io.projectreactor:reactor-kotlin-extensions:1.0.0.M2")
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8")
   /* kotlin test */
   testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
