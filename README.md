@@ -34,17 +34,20 @@ chmod 700 .githooks/pre-push
   - Open IDEA, enter `Preferences -> Editor -> Code Style -> Import Schema`
   - Choose `config/GoogleStyle.xml`
     > This style is based on GoogleStyle and default Kotlin style of Intellij Team, is suitable for both Java and Kotlin.
+
 - New line end of file
   - Enter `Preferences -> Editor -> General`
   - Check on `Other: Ensure line feed at file end on Save`
-- (Optional) Automatic format before commit when using IDEA commit dialog
-  - Enter `Preferences -> Version Control -> Commit Dialog`
-  - Check on Reformat/Optimize/Cleanup
+
 - Set jvm of gradle
   - Enter `Build, Execution, Deployment -> Build Tools -> Gradle`  
   - Select `Gradle JVM: Use Project JDK`
   > If the jvm is different with your project, will cause 'No tests found' error
-  
+
+- (Optional) Automatic format before commit when using IDEA commit dialog
+  - Enter `Preferences -> Version Control -> Commit Dialog`
+  - Check on Reformat/Optimize/Cleanup
+
 ## Test
 
 1. init test & integration test
