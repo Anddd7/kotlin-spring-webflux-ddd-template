@@ -8,8 +8,7 @@ import org.springframework.web.reactive.function.client.WebClient
 @Configuration
 class WebClientConfig {
   @Bean
-  fun webClient(downstream: Downstream) =
-      WebClient.builder().baseUrl(downstream.stock).build()
+  fun webClient(downstream: Downstream): WebClient = WebClientFactory.build(downstream.stock)
 }
 
 @Configuration
