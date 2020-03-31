@@ -22,4 +22,4 @@ spring:
     locations: classpath:db/migration
 
 downstream:
-  stock: http://localhost:8080
+  stock: ${STOCK_URL}

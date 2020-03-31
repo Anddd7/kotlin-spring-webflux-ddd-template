@@ -26,7 +26,7 @@ java.targetCompatibility = JavaVersion.VERSION_11
 
 // import plugins into this project
 plugins {
-  val kotlinVersion = "1.3.61"
+  val kotlinVersion = "1.3.70"
 
   // core plugins, which is already include in plugin dependencies spec
   idea
@@ -40,12 +40,14 @@ plugins {
    * binary(external) plugins, provide id and version to resolve it
    * base plugin for spring-boot, provide plugins and tasks
    */
-  id("org.springframework.boot") version "2.2.2.RELEASE"
-  id("io.spring.dependency-management") version "1.0.8.RELEASE"
+  id("org.springframework.boot") version "2.2.4.RELEASE"
+  id("io.spring.dependency-management") version "1.0.9.RELEASE"
 
   id("org.flywaydb.flyway") version "6.1.4"
 
   id("io.gitlab.arturbosch.detekt") version "1.3.0"
+
+  id("org.owasp.dependencycheck") version "5.3.2"
 }
 
 /** -------------- configure imported plugin -------------- */
@@ -58,7 +60,7 @@ val apiSourceSet = sourceSets.create("apiTest") {
 
   val testSourceSet = sourceSets.test.get()
 
-  compileClasspath += testSourceSet.compileClasspath
+  compileClasspath += testSourceSet.runtimeClasspath
   runtimeClasspath += testSourceSet.runtimeClasspath
 }
 
@@ -82,12 +84,13 @@ flyway {
 }
 
 detekt {
+//  failFast = true
   toolVersion = "1.1.1"
   input = files("src/main/kotlin")
 }
 
 jacoco {
-  toolVersion = "0.8.3"
+  toolVersion = "0.8.5"
 }
 
 /** -------------- dependencies management -------------- */
@@ -96,54 +99,51 @@ dependencies {
   /* kotlin */
   implementation("org.jetbrains.kotlin:kotlin-reflect")
   implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-  testImplementation("io.mockk:mockk:1.9.3")
-  testImplementation("org.assertj:assertj-core:3.14.0")
-
-  /* junit5 */
+  /* kotlin coroutines*/
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8")
+  /* kotlin test */
+  testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
   testImplementation("org.junit.jupiter:junit-jupiter-engine")
+  testImplementation("io.mockk:mockk:1.9.3")
+  testImplementation("org.assertj:assertj-core:3.15.0")
 
-  /* webflux x reactor*/
+  /* spring webflux*/
   implementation("org.springframework.boot:spring-boot-starter-webflux")
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+  /* security */
+//  implementation("org.springframework.boot:spring-boot-starter-security")
+//  testImplementation("org.springframework.security:spring-security-test")
+  /* spring test*/
   testImplementation("org.springframework.boot:spring-boot-starter-test") {
     exclude(module = "junit")
     exclude(group = "org.mockito")
     exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
   }
-  testImplementation("com.ninja-squad:springmockk:1.1.3")
+  testImplementation("com.ninja-squad:springmockk:2.0.0")
   testImplementation("io.projectreactor:reactor-test")
 
-  /* kotlin coroutines x reactor */
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+  /* monitoring*/
+//  implementation("org.springframework.boot:spring-boot-starter-actuator")
+  implementation("net.logstash.logback:logstash-logback-encoder:6.3")
 
-  /* security */
-//  implementation("org.springframework.boot:spring-boot-starter-security")
-//  testImplementation("org.springframework.security:spring-security-test")
-
-  /* monitoring x logging */
-  implementation("org.springframework.boot:spring-boot-starter-actuator")
-  runtimeOnly("net.logstash.logback:logstash-logback-encoder:5.2")
-
-  /* r2bdc: reactive relational database connector */
+  /* r2bdc */
+  // TODO remove this after upgrade spring boot to 2.3.x https://github.com/spring-projects/spring-boot/issues/19988
   implementation("org.springframework.boot.experimental:spring-boot-starter-data-r2dbc:0.1.0.M3")
-  // you can import and configure r2dbc manually in spring if you don't want to use experimental
-//  implementation("org.springframework.data:spring-data-r2dbc:1.0.0.RELEASE")
-//  implementation("io.r2dbc:r2dbc-spi:0.8.0.RELEASE")
-  runtimeOnly("io.r2dbc:r2dbc-postgresql:0.8.0.RELEASE")
-  // jdbc x flyway
-  // ps: jdbc is only used by flyway and embedded db to do migration and test preparation
+  runtimeOnly("io.r2dbc:r2dbc-postgresql:0.8.2.RELEASE")
+  /* jdbc */
   implementation("org.springframework.boot:spring-boot-starter-jdbc")
-  implementation("org.flywaydb:flyway-core:6.1.4")
+  implementation("org.flywaydb:flyway-core:6.2.3")
   runtimeOnly("org.postgresql:postgresql")
 
   /* mock db x server */
   testImplementation("io.zonky.test:embedded-postgres:1.2.6")
-  testImplementation("com.github.tomakehurst:wiremock:2.25.1")
+  testImplementation("com.github.tomakehurst:wiremock:2.26.0")
 
   /* architecture verification */
-  testImplementation("com.tngtech.archunit:archunit-junit5-api:0.12.0")
-  testRuntimeOnly("com.tngtech.archunit:archunit-junit5-engine:0.12.0")
+  testImplementation("com.tngtech.archunit:archunit-junit5-api:0.13.1")
+  testRuntimeOnly("com.tngtech.archunit:archunit-junit5-engine:0.13.1")
 }
 
 /** -------------- configure tasks -------------- */
@@ -168,8 +168,7 @@ tasks.withType<Test> {
 }
 
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt> {
-  // include("**/special/package/**") // only analyze a sub package inside src/main/kotlin
-  // exclude("**/special/package/internal/**") // but exclude our legacy internal package
+  jvmTarget = "1.8"
 }
 
 task("newMigration") {
